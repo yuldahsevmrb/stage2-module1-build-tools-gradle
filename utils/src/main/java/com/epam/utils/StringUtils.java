@@ -1,20 +1,14 @@
 package com.epam.utils;
 
+import org.apache.commons.lang3.math.NumberUtils;
 public class StringUtils {
     public static boolean isPositiveNumber(String str) {
-        if (StringUtils.isEmpty(str)) {
+        if (NumberUtils.isDigits(str)) {
+            return Long.parseLong(str) > 0;
+        } else if (NumberUtils.isCreatable(str)) {
+            return Double.parseDouble(str) > 0;
+        } else {
             return false;
         }
-        String clean = str.trim().replaceAll(",", "");
-        if (clean.charAt(0) == '-') {
-            return false;
-        }
-        if (clean.charAt(0) == '+') {
-            clean = clean.substring(1);
-        }
-        if (clean.matches("^[0-9]+(\\.[0-9]+)?$")) {
-            return true;
-        }
-        return false;
     }
 }
